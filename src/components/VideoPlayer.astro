@@ -1,0 +1,27 @@
+---
+interface Props {
+  src: string;
+  poster?: string;
+  title?: string;
+  autoplay?: boolean;
+  loop?: boolean;
+  muted?: boolean;
+}
+
+const { src, poster, title = 'Video Player', autoplay = false, loop = true, muted = true } = Astro.props;
+---
+
+<video
+  class="w-full rounded-lg shadow-lg"
+  controls
+  poster={poster}
+  {autoplay}
+  {loop}
+  {muted}
+  preload="auto"
+>
+  <source src={src} type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+<p class="text-center mt-4 text-gray-600 text-sm">{title}</p>

@@ -1,0 +1,115 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Navbar currentPath="/tickets/" />
+
+  <main>
+    <section class="container mx-auto px-4 py-16">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-serif font-bold mb-8 text-center">Purchase Your Tickets</h1>
+
+        <div class="card mb-8 overflow-hidden">
+          <img
+            src="/images/shows/pirates-poster.jpg"
+            alt="The Pirates of Penzance Show Poster"
+            class="w-full h-auto object-cover"
+          />
+        </div>
+
+        <div class="card mb-8">
+          <h2 class="text-2xl font-serif font-bold mb-4">Tickets for The Pirates of Penzance</h2>
+          <p class="text-lg mb-6">ON SALE JULY 2026</p>
+
+          <div class="bg-blue-50 p-6 rounded-lg mb-6">
+            <h3 class="text-xl font-semibold mb-4">Ticket Options</h3>
+            <ul class="space-y-2">
+              <li class="flex items-center gap-2">
+                <span class="size-6 flex items-center justify-center bg-secondary text-primary rounded-full text-sm">✓</span>
+                <span><strong> Online: </strong>Secure credit card ordering</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="size-6 flex items-center justify-center bg-secondary text-primary rounded-full text-sm">✓</span>
+                <span><strong> By Mail: </strong>Send check or money order</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="size-6 flex items-center justify-center bg-secondary text-primary rounded-full text-sm">✓</span>
+                <span><strong> By Phone: </strong>Call 860-554-1256</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div class="card text-center">
+              <h3 class="text-xl font-bold mb-2">Adult (AT THE DOOR)</h3>
+              <p class="text-3xl font-serif font-bold text-secondary">$35</p>
+            </div>
+            <div class="card text-center">
+              <h3 class="text-xl font-bold mb-2">Adult (ADVANCE)</h3>
+              <p class="text-3xl font-serif font-bold text-secondary">$30</p>
+            </div>
+            <div class="card text-center">
+              <h3 class="text-xl font-bold mb-2">Student</h3>
+              <p class="text-3xl font-serif font-bold text-secondary">$15</p>
+            </div>
+          </div>
+
+          <div class="bg-yellow-50 p-6 rounded-lg mb-6">
+            <h4 class="font-bold mb-2">Group Discounts</h4>
+            <p>Purchases of 10 or more tickets receive a 10% discount.</p>
+          </div>
+
+          <div class="bg-blue-50 p-6 rounded-lg">
+            <h4 class="font-bold mb-2">Important Information</h4>
+            <ul class="space-y-2">
+              <li>• All tickets are general admission seating</li>
+              <li>• Tickets can be purchased online, by mail, or by phone</li>
+              <li>• Phone orders: 860-554-1256</li>
+              <li>• Performance dates: October 17 & 18, 2026</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="text-2xl font-serif font-bold mb-4">Performance Venue</h2>
+          <div class="prose max-w-none">
+            <p class="text-lg mb-2"><strong>Valley Regional High School</strong></p>
+            <p class="text-lg mb-4">256 Kelsey Hill Road</p>
+            <p class="text-lg mb-4">Deep River, CT 06417</p>
+
+            <div class="mt-6">
+              <a href="/theatre/" class="flex items-center gap-2 text-primary hover:underline">
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                Directions and Map
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

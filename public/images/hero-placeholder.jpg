@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <rect width="800" height="400" fill="#1D3557"/>
+  <rect y="320" width="800" height="80" fill="#D4AF37"/>
+  <text x="400" y="100" text-anchor="middle" font-family="serif" font-size="48" fill="white" font-weight="bold">
+    The Connecticut Gilbert & Sullivan Society
+  </text>
+  <text x="400" y="160" text-anchor="middle" font-family="serif" font-size="36" fill="#D4AF37">
+    Presenting
+  </text>
+  <text x="400" y="220" text-anchor="middle" font-family="serif" font-size="56" fill="#D4AF37" font-weight="bold">
+    The Pirates of Penzance
+  </text>
+  <text x="400" y="280" text-anchor="middle" font-family="sans-serif" font-size="28" fill="#D4AF37">
+    October 17-18, 2026
+  </text>
+  <rect x="250" y="300" width="300" height="50" rx="5" fill="#D4AF37" opacity="0.2"/>
+  <text x="400" y="335" text-anchor="middle" font-family="sans-serif" font-size="24" fill="white" font-weight="bold">
+    Get Tickets Today
+  </text>
+</svg>

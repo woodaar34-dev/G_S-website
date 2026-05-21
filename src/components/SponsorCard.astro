@@ -1,0 +1,30 @@
+---
+interface Props {
+  logo: string;
+  name?: string;
+  url?: string;
+}
+
+const { logo, name, url } = Astro.props;
+---
+
+<div class="card flex flex-col items-center justify-center p-4">
+  {url ? (
+    <a href={url} target="_blank" rel="noopener noreferrer" class="flex items-center gap-4">
+      <img
+        src={logo}
+        alt={`${name} logo`}
+        class="h-16 w-auto object-contain"
+      />
+    </a>
+  ) : (
+    <div class="flex items-center gap-4">
+      <img
+        src={logo}
+        alt={`${name} logo`}
+        class="h-16 w-auto object-contain"
+      />
+    </div>
+  )}
+  {name && <p class="mt-2 text-center font-medium">{name}</p>}
+</div>

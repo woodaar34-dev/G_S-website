@@ -1,0 +1,196 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Navbar currentPath="/auditions/" />
+
+  <main>
+    <section class="container mx-auto px-4 py-16">
+      <div class="max-w-5xl mx-auto">
+        <h1 class="text-4xl font-serif font-bold mb-8 text-center">Join Our Cast</h1>
+
+        <div class="card mb-8">
+          <img
+            src="/images/auditions/audition-graphic.jpg"
+            alt="Join Our Cast"
+            class="w-full h-auto object-cover rounded-lg mb-6"
+          />
+          <p class="text-lg mb-6">
+            For all who are interested in performing in our October 2026 production of
+            <em>The Pirates of Penzance</em>, this page provides detailed information on
+            both how to audition for a principal role AND how to join men's or women's chorus.
+            Please be sure to read
+            <a href="/auditions/info" class="text-primary hover:underline">
+              IF YOU ARE PERFORMING WITH US
+            </a>
+            which contains important additional information about performing with us.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <a href="#principal" class="card flex flex-col items-center justify-center py-8 text-center hover:bg-blue-50 transition-colors">
+              <div class="text-5xl mb-4">🎭</div>
+              <h2 class="text-2xl font-bold mb-2">Principal Roles</h2>
+              <p class="text-gray-600">Audition for a speaking/singing role</p>
+            </a>
+            <a href="#chorus" class="card flex flex-col items-center justify-center py-8 text-center hover:bg-blue-50 transition-colors">
+              <div class="text-5xl mb-4">🎵</div>
+              <h2 class="text-2xl font-bold mb-2">Join Chorus</h2>
+              <p class="text-gray-600">No audition required for chorus members</p>
+            </a>
+          </div>
+        </div>
+
+        <h2 id="principal" class="text-3xl font-serif font-bold mb-6">Audition for Principal Roles</h2>
+
+        <div class="card mb-8">
+          <h3 class="text-xl font-bold mb-4">Audition Dates & Times</h3>
+          <ul class="space-y-2">
+            <li><strong>Sunday, June 14th</strong> - Starting at 6:00 PM</li>
+            <li><strong>Tuesday, June 16th</strong> - Starting at 7:00 PM</li>
+            <li class="text-secondary font-semibold">
+              <strong>Callback Date (if needed):</strong> Tuesday, July 23rd, 7:00 PM
+            </li>
+          </ul>
+          <p class="text-sm text-gray-600 mt-2">
+            Note: For both audition dates, you must check in and register no later than 8:30 PM.
+          </p>
+        </div>
+
+        <div class="card mb-8">
+          <h3 class="text-xl font-bold mb-4">Principal Roles</h3>
+          <p class="mb-4">
+            Check out the character descriptions and their vocal ranges:
+            <a href="/auditions/characters" class="text-primary hover:underline">
+              View Character Breakdown
+            </a>
+          </p>
+        </div>
+
+        <div class="card mb-8">
+          <h3 class="text-xl font-bold mb-4">Audition Location</h3>
+          <p class="mb-2"><strong>Congregation Adath Israel</strong></p>
+          <p class="mb-2">8 Broad Street, Middletown, CT 06457</p>
+          <div class="mt-4 bg-yellow-50 p-4 rounded-lg text-sm">
+            <p><strong>Note:</strong> Food and beverages are not allowed inside Adath Israel.
+            You may bring in bottled water or your own personal water bottle.</p>
+          </div>
+        </div>
+
+        <div class="card mb-8">
+          <h3 class="text-xl font-bold mb-4">What to Prepare</h3>
+          <ul class="space-y-3">
+            <li>
+              <strong>Complete an Audition Form:</strong>
+              <a href="/auditions/form" class="text-primary hover:underline">
+                Download the PDF
+              </a>
+              or fill one out at the audition.
+            </li>
+            <li>
+              <strong>Bring Sheet Music:</strong> Prepare a song (preferably in English) that
+              demonstrates your singing abilities. Bring a copy for our accompanist.
+            </li>
+            <li>
+              <strong>Mark Conflicts:</strong> Please identify any conflicts with our
+              <a href="/auditions/schedule" class="text-primary hover:underline">
+                rehearsal schedule
+              </a>
+              on the form.
+            </li>
+          </ul>
+        </div>
+
+        <div class="card mb-8">
+          <h3 class="text-xl font-bold mb-4">Audition Process</h3>
+          <ol class="space-y-3 list-decimal list-inside">
+            <li>Check in with the person at the reception desk</li>
+            <li>Submit your completed audition form</li>
+            <li>Pick up additional handouts at the reception desk</li>
+            <li>Sing a song of your choice</li>
+            <li>Sing scales to determine your vocal range</li>
+            <li>Read dialogue for your preferred role(s)</li>
+            <li>May be asked to read dialogue for other roles</li>
+          </ol>
+        </div>
+
+        <div class="card mb-8">
+          <h3 class="text-xl font-bold mb-4">Dance Assessment</h3>
+          <p class="mb-2">
+            In one of our early rehearsals, our choreographer will show you basic dance
+            movements. You'll be grouped with other cast members and asked to perform
+            these movements so we can assess your ability to learn and perform choreography.
+          </p>
+          <p class="font-semibold text-secondary">
+            This information helps our choreographer and director when creating choreography.
+          </p>
+        </div>
+
+        <h2 id="chorus" class="text-3xl font-serif font-bold mb-6">Join Men's or Women's Chorus</h2>
+
+        <div class="card mb-8">
+          <p class="text-xl font-bold text-secondary mb-4">
+            YOU DO NOT HAVE TO AUDITION TO BE IN CHORUS!
+          </p>
+          <p class="mb-4">
+            If you have performed with us or with another G&S or musical theater group,
+            or with a chorus or choir, and can carry a tune, you are welcome to join!
+          </p>
+        </div>
+
+        <div class="card mb-8">
+          <h3 class="text-xl font-bold mb-4">How to Join</h3>
+          <ol class="space-y-3 list-decimal list-inside">
+            <li>
+              Complete the
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfYZQDr9rq94-VEuRtzOcxYtsrM5m0GCYBR4b8xplvbRn-BFw/viewform" class="text-primary hover:underline">
+                Chorus Registration Form
+              </a>
+            </li>
+            <li>Identify any conflicts with our rehearsal schedule</li>
+          </ol>
+          <div class="mt-4 bg-yellow-50 p-4 rounded-lg text-sm">
+            <p>
+              <strong>Under 18?</strong> Please have a parent or guardian complete the
+              <a href="/auditions/consent" class="text-primary hover:underline">
+                Parental Consent Form
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <div class="card mb-8">
+          <h3 class="text-xl font-bold mb-4">Dance Assessment (Same as Principals)</h3>
+          <p>
+            Chorus members also participate in the dance assessment during early rehearsals.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="text-xl font-bold mb-4">Need More Information?</h3>
+          <p class="mb-2"><strong>Phone:</strong> 860-554-1256</p>
+          <p class="mb-2"><strong>Email:</strong> jfreedman@snet.net</p>
+          <p class="mt-4">
+            We'd love to hear from you! Feel free to call or email with any questions
+            about auditioning or joining our chorus.
+          </p>
+        </div>
+
+        <div class="mt-12 card text-center">
+          <h3 class="text-2xl font-serif font-bold mb-4">First Time Performer?</h3>
+          <p class="mb-4">
+            If you've never seen our shows before, we recommend watching some videos
+            on our YouTube channel to get a sense of what our productions are like:
+          </p>
+          <a href="https://www.youtube.com/@connecticutgilbertsullivan2348" class="inline-block btn-primary">
+            Watch Our YouTube Channel
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

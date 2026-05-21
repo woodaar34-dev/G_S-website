@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Navbar currentPath="/join-us/" />
+
+  <main>
+    <section class="container mx-auto px-4 py-16">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-serif font-bold mb-8 text-center">Join Us</h1>
+
+        <div class="card mb-8">
+          <p class="text-lg mb-6">
+            Whether you're a seasoned performer or just looking to support the arts, there are
+            many ways to get involved with the Connecticut Gilbert & Sullivan Society.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="card">
+              <h2 class="text-xl font-bold mb-4">Become a Member</h2>
+              <p class="mb-4">
+                Join as a member to support our mission and enjoy benefits like:
+              </p>
+              <ul class="space-y-2 mb-4">
+                <li>• Discounted ticket prices</li>
+                <li>• Invitation to company meetings</li>
+                <li>• Recognition in our programs</li>
+                <li>• Behind-the-scenes tours</li>
+              </ul>
+              <a href="/membership-form" class="inline-block btn-primary">Join Now</a>
+            </div>
+
+            <div class="card">
+              <h2 class="text-xl font-bold mb-4">Volunteer</h2>
+              <p class="mb-4">
+                We need volunteers for:
+              </p>
+              <ul class="space-y-2 mb-4">
+                <li>• Set construction and painting</li>
+                <li>• Costume design and construction</li>
+                <li>• Lighting and sound operation</li>
+                <li>• Front-of-houseush duties</li>
+                <li>• Marketing and outreach</li>
+              </ul>
+              <p class="text-sm text-gray-600">
+                Contact us at 860-554-1256 to learn more about volunteer opportunities.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-8">
+          <h2 class="text-2xl font-serif font-bold mb-4">What's It Like?</h2>
+          <p class="mb-4">
+            Working with CG&SS is a rewarding experience that combines history, music, and community.
+            You'll work alongside talented professionals and fellow community members who share your
+            passion for the arts.
+          </p>
+          <p class="mb-4">
+            Whether you're on stage, backstage, or in the audience, you'll be part of a tradition
+            that brings Gilbert & Sullivan's timeless works to life in Connecticut.
+          </p>
+        </div>
+
+        <div class="card mb-8">
+          <h2 class="text-2xl font-serif font-bold mb-4">Youth involvement</h2>
+          <p class="mb-4">
+            We actively encourage and support area youth by including students from area primary,
+            secondary, and high schools to perform in our shows or to help with production activities.
+          </p>
+          <p class="mb-4">
+            Students who participate gain valuable experience in theatre, music, and stagecraft,
+            all while exploring the rich heritage of Gilbert & Sullivan.
+          </p>
+        </div>
+
+        <div class="card mb-8">
+          <h2 class="text-2xl font-serif font-bold mb-4">Corporate Sponsorship</h2>
+          <p class="mb-4">
+            Support the arts in your community while gaining visibility for your business.
+            Sponsorship opportunities are available at various levels.
+          </p>
+          <a href="/sponsorship" class="inline-block btn-primary">Learn About Sponsorship</a>
+        </div>
+
+        <div class="card">
+          <h2 class="text-2xl font-serif font-bold mb-4">Ready to Get Involved?</h2>
+          <p class="mb-4">Contact us today to learn more about joining our community:</p>
+          <ul class="space-y-2">
+            <li><strong>Phone:</strong> 860-554-1256</li>
+            <li><strong>Email:</strong> jfreedman@snet.net</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

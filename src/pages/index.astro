@@ -1,0 +1,131 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Footer from '../components/Footer.astro';
+import SponsorCard from '../components/SponsorCard.astro';
+
+const sponsors = [
+  { name: 'WMNR', logo: '/images/sponsors/wmnr.png', url: 'https://wmnr.org' },
+  { name: 'CFMC', logo: '/images/sponsors/cfmc.png', url: 'https://cfmc.org' },
+  { name: 'Liberty Bank', logo: '/images/sponsors/liberty-bank.png', url: 'https://libertybank.com' },
+];
+
+const shows = [
+  {
+    title: 'The Pirates of Penzance',
+    dates: 'October 17-18, 2026',
+    image: '/images/shows/pirates-poster.jpg',
+    url: '/tickets/',
+    description: 'Our upcoming production featuring professional orchestra and singers.',
+  },
+  {
+    title: 'Iolanthe',
+    dates: 'June 2026',
+    image: '/images/shows/iolanthe-poster.jpg',
+    url: '/virtual-entertainment/',
+    description: 'Watch our recent performance available for streaming.',
+  },
+];
+
+const quickLinks = [
+  {
+    title: 'Buy Tickets',
+    description: 'Secure your seats for The Pirates of Penzance',
+    icon: '🎟️',
+    url: '/tickets/',
+  },
+  {
+    title: 'Join Our Cast',
+    description: 'Auditions for principal roles and chorus',
+    icon: '🎭',
+    url: '/auditions/',
+  },
+  {
+    title: 'Watch Videos',
+    description: 'Streaming and DVD options for past performances',
+    icon: '🎬',
+    url: '/virtual-entertainment/',
+  },
+];
+---
+
+<Layout>
+  <Navbar currentPath="/" />
+
+  <main>
+    <Hero />
+
+    <section class="container mx-auto px-4 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {quickLinks.map((link) => (
+          <a href={link.url} class="card text-center group">
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+              {link.icon}
+            </div>
+            <h3 class="text-xl font-serif font-bold mb-2">{link.title}</h3>
+            <p class="text-gray-600">{link.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-16">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-serif font-bold mb-4">Our Upcoming Shows</h2>
+        <p class="text-gray-600">Experience the magic of Gilbert & Sullivan</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {shows.map((show) => (
+          <div class="card overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-1/3">
+              <img
+                src={show.image}
+                alt={`${show.title} poster`}
+                class="w-full h-48 md:h-full object-cover"
+              />
+            </div>
+            <div class="p-6 flex flex-col justify-center">
+              <h3 class="text-2xl font-serif font-bold mb-2">{show.title}</h3>
+              <p class="text-secondary font-semibold mb-2">{show.dates}</p>
+              <p class="text-gray-600 mb-4">{show.description}</p>
+              <a href={show.url} class="btn-primary inline-block text-center">
+                Learn More
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-16 bg-secondary/5">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-serif font-bold mb-4">Our Sponsors</h2>
+        <p class="text-gray-600">Thank you to our generous supporters</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+        {sponsors.map((sponsor) => (
+          <SponsorCard
+            logo={sponsor.logo}
+            name={sponsor.name}
+            url={sponsor.url}
+          />
+        ))}
+      </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-16">
+      <div class="card bg-primary text-white text-center py-12">
+        <h2 class="text-3xl font-serif font-bold mb-6">Join Us at Our Next Performance</h2>
+        <p class="text-xl mb-8">
+          Experience the timeless humor and music of Gilbert & Sullivan
+        </p>
+        <a href="/tickets/" class="btn-primary text-center">Get Tickets Today</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

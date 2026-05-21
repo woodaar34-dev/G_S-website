@@ -1,0 +1,120 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Navbar currentPath="/gallery/" />
+
+  <main>
+    <section class="container mx-auto px-4 py-16">
+      <div class="max-w-6xl mx-auto">
+        <h1 class="text-4xl font-serif font-bold mb-8 text-center">Our Show Gallery</h1>
+
+        <div class="mb-8 text-center">
+          <p class="text-xl text-gray-600">
+            A collection of photos from our recent and past performances
+          </p>
+        </div>
+
+        <div class="card mb-8">
+          <h2 class="text-2xl font-serif font-bold mb-4">The Pirates of Penzance (2026)</h2>
+          <p class="mb-6">Our upcoming production featuring a talented cast and professional orchestra</p>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[1, 2, 3, 4].map((i) => (
+              <div class="card overflow-hidden group relative">
+                <img
+                  src={`/images/gallery/pirates-${i}.jpg`}
+                  alt={`The Pirates of Penzance performance photo ${i}`}
+                  class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                />
+                <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span class="text-white font-medium">View Larger</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="card mb-8">
+          <h2 class="text-2xl font-serif font-bold mb-4">Iolanthe (2024)</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[1, 2, 3, 4].map((i) => (
+              <div class="card overflow-hidden group relative">
+                <img
+                  src={`/images/gallery/iolanthe-${i}.jpg`}
+                  alt={`Iolanthe performance photo ${i}`}
+                  class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                />
+                <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span class="text-white font-medium">View Larger</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="card mb-8">
+          <h2 class="text-2xl font-serif font-bold mb-4">The Mikado (2023)</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[1, 2, 3, 4].map((i) => (
+              <div class="card overflow-hidden group relative">
+                <img
+                  src={`/images/gallery/mikado-${i}.jpg`}
+                  alt={`The Mikado performance photo ${i}`}
+                  class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                />
+                <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span class="text-white font-medium">View Larger</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="card mb-8">
+          <h2 class="text-2xl font-serif font-bold mb-4">The Gondoliers (2022)</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[1, 2, 3, 4].map((i) => (
+              <div class="card overflow-hidden group relative">
+                <img
+                  src={`/images/gallery/gondoliers-${i}.jpg`}
+                  alt={`The Gondoliers performance photo ${i}`}
+                  class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                />
+                <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span class="text-white font-medium">View Larger</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="text-2xl font-serif font-bold mb-4">Archives</h2>
+          <p class="mb-6">
+            We have photographs and videos from many past productions, including:
+          </p>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {[
+              'H.M.S. Pinafore (2021)',
+              'Patience (2019)',
+              'Utopia Limited (2018)',
+              'TheYeomen of the Guard (2017)',
+              'The Sorcerer (2015)',
+              ' Trial by Jury (2014)',
+            ].map((show) => (
+              <a href="#" class="card text-center hover:bg-blue-50 transition-colors">
+                <div class="text-4xl mb-2">🎭</div>
+                <p class="font-medium">{show}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

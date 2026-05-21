@@ -1,0 +1,130 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Navbar currentPath="/virtual-entertainment/" />
+
+  <main>
+    <section class="container mx-auto px-4 py-16">
+      <div class="max-w-5xl mx-auto">
+        <h1 class="text-4xl font-serif font-bold mb-8 text-center">Virtual Entertainment</h1>
+
+        <div class="card mb-8">
+          <h2 class="text-2xl font-serif font-bold mb-4">Watch Our YouTube Channel</h2>
+          <p class="mb-6">
+            If you can't make it to the theater, enjoy our performances from home!
+            Subscribe to our YouTube channel for video highlights, full-length recordings,
+            and exclusive behind-the-scenes content.
+          </p>
+
+          <div class="aspect-video bg-black rounded-lg overflow-hidden">
+            <iframe
+              class="w-full h-full"
+              src="https://www.youtube.com/embed/videoseries?list=PLexample"
+              title="Connecticut Gilbert & Sullivan Society YouTube Channel"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+
+          <div class="mt-6 text-center">
+            <a href="https://www.youtube.com/@connecticutgilbertsullivan2348" class="inline-flex items-center gap-2 btn-primary">
+              <svg
+                class="w-6 h-6"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.376.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.376-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.498-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+              </svg>
+              Subscribe on YouTube
+            </a>
+          </div>
+        </div>
+
+        <div class="card mb-8">
+          <h2 class="text-2xl font-serif font-bold mb-4">Featured Performances</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="card text-center">
+              <div class="aspect-video mb-4 overflow-hidden">
+                <img
+                  src="/images/videos/pirates-full.jpg"
+                  alt="The Pirates of Penzance 2016"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <h3 class="text-lg font-bold mb-2">The Pirates of Penzance (2016)</h3>
+              <p class="text-gray-600 mb-4">Full-length performance from 2016</p>
+              <a href="https://youtu.be/IAWAdkbXdag" class="inline-flex items-center gap-2 text-primary hover:underline">
+                <svg
+                  class="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                Watch Full Performance
+              </a>
+            </div>
+            <div class="card text-center">
+              <div class="aspect-video mb-4 overflow-hidden">
+                <img
+                  src="/images/videos/iolanthe.jpg"
+                  alt="Iolanthe"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <h3 class="text-lg font-bold mb-2">Iolanthe (2024)</h3>
+              <p class="text-gray-600 mb-4">Select performances available</p>
+              <a href="/virtual-entertainment/iolanthe-order" class="inline-flex items-center gap-2 btn-primary">
+                Order Video Recording
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-8">
+          <h2 class="text-2xl font-serif font-bold mb-4">Order Video Recordings</h2>
+          <div class="prose max-w-none">
+            <p class="mb-4">
+              <strong>UNABLE TO MAKE THE SHOW?</strong>
+            </p>
+            <p class="mb-6">
+              Order a video recording of our performances and enjoy them from the comfort
+              of your home. Perfect for those who couldn't attend or want to relive the experience.
+            </p>
+            <div class="bg-blue-50 p-6 rounded-lg mb-6">
+              <h3 class="text-xl font-bold mb-4">Currently Available: Iolanthe</h3>
+              <p class="mb-4">
+                Click
+                <a href="/videos/iolanthe-order" class="text-primary hover:underline font-semibold">
+                  HERE
+                </a>
+                to order a video of the Saturday matinee and/or Saturday evening performance of Iolanthe.
+              </p>
+              <p class="text-sm text-gray-600">
+                PDF Order Form • Includes Streaming and Physical DVD Options
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="text-2xl font-serif font-bold mb-4">Can't Find What You're Looking For?</h2>
+          <p class="mb-6">
+            Contact us at 860-554-1256 or jfreedman@snet.net to inquire about
+            video availability for other productions.
+          </p>
+          <p class="font-semibold text-secondary">
+            We're constantly adding more performances to our library!
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
