@@ -4,54 +4,29 @@ interface Props {
 }
 
 const { shorts } = Astro.props;
-let scrollbarWidth = 0;
 ---
 
-<div class="relative w-full" x-data="{
-  currentIndex: 0,
-  scrollContainer: null,
-  updateButtons() {
-    if (!this.scrollContainer) return;
-    const { scrollLeft, scrollWidth, clientWidth } = this.scrollContainer;
-    const prevButton = document.getElementById('scroll-prev');
-    const nextButton = document.getElementById('scroll-next');
-    if (prevButton) prevButton.disabled = scrollLeft < 10;
-    if (nextButton) nextButton.disabled = scrollLeft >= scrollWidth - clientWidth - 10;
-  },
-  scroll(amount) {
-    if (this.scrollContainer) {
-      this.scrollContainer.scrollBy({ left: amount, behavior: 'smooth' });
-      setTimeout(() => this.updateButtons(), 300);
-    }
-  }
-}">
+<div class="relative w-full">
   <div class="relative">
     <!-- Navigation Arrows -->
-    <div class="absolute inset-y-0 left-0 flex items-center z-10">
-      <button
-        id="scroll-prev"
-        @click="scroll(-100%)"
-        :disabled="currentIndex === 0"
-        class="w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-all disabled:opacity-0 disabled:pointer-events-none backdrop-blur-sm"
-        aria-label="Previous Short"
-      >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-    </div>
+    <button
+      id="scroll-prev"
+      class="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-all disabled:opacity-0 disabled:pointer-events-none z-10 backdrop-blur-sm"
+      aria-label="Previous Short"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
 
     <!-- Scroll Container -->
     <div
-      #scrollContainer
-      class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4"
-      style="scrollbar-width: thin;"
-      @scroll.debounce="updateButtons()"
+      id="shorts-container"
+      class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 scrollbar-hide"
     >
       {shorts.map((short, index) => (
         <div
-          class="snap-center flex-shrink-0 w-full relative aspect-video rounded-lg overflow-hidden group cursor-pointer"
-          @click="() => { currentIndex = index; updateButtons(); }"
+          class="snap-center flex-shrink-0 w-full relative aspect-video rounded-lg overflow-hidden group"
         >
           <a href={`https://youtu.be/${short.id}`} target="_blank" rel="noopener noreferrer" class="block w-full h-full">
             <img
@@ -61,42 +36,64 @@ let scrollbarWidth = 0;
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <div class="absolute bottom-0 left-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity">
-              <p class="text-white text-sm font-medium truncate">{short.title}</p>
+              <p class="text-white text-sm font-medium truncate max-w-[80%]">{short.title}</p>
             </div>
           </a>
         </div>
       ))}
     </div>
 
-    <div class="absolute inset-y-0 right-0 flex items-center z-10">
-      <button
-        id="scroll-next"
-        @click="scroll(100%)"
-        :disabled="currentIndex === shorts.length - 1"
-        class="w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-all disabled:opacity-0 disabled:pointer-events-none backdrop-blur-sm"
-        aria-label="Next Short"
-      >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-    </div>
+    <button
+      id="scroll-next"
+      class="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-all disabled:opacity-0 disabled:pointer-events-none z-10 backdrop-blur-sm"
+      aria-label="Next Short"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
   </div>
 
+  <style is:global>
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+
   <script>
-    const container = document.querySelector('[x-data] .flex');
-    if (container) {
-      container.addEventListener('scroll', () => {
-        const scrollLeft = container.scrollLeft;
-        const itemWidth = container.firstElementChild.offsetWidth;
-        const currentIndex = Math.round(scrollLeft / itemWidth);
-        
-        const prevButton = document.getElementById('scroll-prev');
-        const nextButton = document.getElementById('scroll-next');
-        
-        if (prevButton) prevButton.disabled = scrollLeft < 10;
-        if (nextButton) nextButton.disabled = scrollLeft >= container.scrollWidth - container.clientWidth - 10;
-      });
+    const container = document.getElementById('shorts-container');
+    const prevButton = document.getElementById('scroll-prev');
+    const nextButton = document.getElementById('scroll-next');
+
+    if (container && prevButton && nextButton) {
+      // Update button states on scroll
+      const updateButtons = () => {
+        const { scrollLeft, scrollWidth, clientWidth } = container;
+        prevButton.disabled = scrollLeft < 10;
+        nextButton.disabled = scrollLeft >= scrollWidth - clientWidth - 10;
+      };
+
+      // Scroll by a portion of width
+      const scrollByWidth = (amount) => {
+        const containerWidth = container.offsetWidth;
+        const itemWidth = container.firstElementChild.offsetWidth + 16; // +16 for gap
+        const itemsPerScreen = Math.floor(containerWidth / itemWidth);
+        const scrollAmount = itemsPerScreen * itemWidth;
+        container.scrollBy({ left: scrollAmount * amount, behavior: 'smooth' });
+        setTimeout(updateButtons, 300);
+      };
+
+      // Event listeners
+      container.addEventListener('scroll', updateButtons);
+      prevButton.addEventListener('click', () => scrollByWidth(-1));
+      nextButton.addEventListener('click', () => scrollByWidth(1));
+
+      // Initial button state update
+      updateButtons();
     }
   </script>
 </div>
