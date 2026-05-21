@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import YoutubeSubscribe from '../components/YoutubeSubscribe.astro';
-import { getPlaylistVideos, getYoutubeShorts } from '../lib/youtube';
+import { getPlaylistVideos } from '../lib/youtube';
 import YoutubeVideoCard from '../components/YoutubeVideoCard.astro';
 
 const latestVideoPlaylistId = 'PLpy6NB5QxjnMAl1dwoMpLVMiRAHOOEx-7';
@@ -12,14 +12,12 @@ const shortsChannelHandle = '@connecticutgilbertsullivan2348';
 
 let latestVideo = null;
 let featuredVideos = [];
-let shorts = [];
 let errorMessage = '';
 
 try {
   const latest = await getPlaylistVideos(latestVideoPlaylistId, 1);
   latestVideo = latest.length > 0 ? latest[0] : null;
   featuredVideos = await getPlaylistVideos(featuredPlaylistId, 6);
-  shorts = await getYoutubeShorts(shortsChannelHandle, 6);
 } catch (error) {
   errorMessage = 'Error loading videos';
 }
@@ -86,27 +84,17 @@ try {
           <p class="mb-6">
             Watch our shortest and most entertaining moments from rehearsals, behind-the-scenes, and more!
           </p>
-          {shorts.length > 0 ? (
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {shorts.map((short: any) => (
-                <div class="relative aspect-[9/16] rounded-lg overflow-hidden group">
-                  <a href={`https://youtu.be/${short.id}`} target="_blank" rel="noopener noreferrer">
-                    <img
-                      src={short.thumbnails.medium?.url || short.thumbnails.default?.url}
-                      alt={short.title}
-                      class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                    />
-                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
-                  </a>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div class="text-center text-gray-500 py-8">
-              {errorMessage || 'No shorts available'}
-            </div>
-          )}
-          <div class="text-center mt-6">
+          <div class="aspect-video bg-black rounded-lg overflow-hidden mb-6">
+            <iframe
+              class="w-full h-full rounded-lg"
+              src="https://www.youtube.com/embed/videoseries?listType=user_uploads&list=@connecticutgilbertsullivan2348"
+              title="YouTube Shorts - Connecticut Gilbert & Sullivan Society"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <div class="text-center">
             <a href={`https://www.youtube.com/${shortsChannelHandle}/shorts`} target="_blank" class="inline-flex items-center gap-2 btn-primary">
               <svg
                 class="w-5 h-5"
