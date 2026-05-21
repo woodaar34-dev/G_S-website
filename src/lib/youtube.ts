@@ -56,7 +56,8 @@ export async function getYoutubeShorts(channelId = CT_GS_CHANNEL_ID, maxResults 
       description: item.snippet.description,
       thumbnails: item.snippet.thumbnails,
       publishedAt: item.snippet.publishedAt,
-    }));
+    }))
+    .sort((a: any, b: any) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
   } catch (error) {
     console.error('Error fetching YouTube shorts:', error);
     return [];
