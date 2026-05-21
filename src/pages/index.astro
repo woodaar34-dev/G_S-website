@@ -7,7 +7,7 @@ import SponsorCard from '../components/SponsorCard.astro';
 import YoutubeEmbed from '../components/YoutubeEmbed.astro';
 import YoutubeSubscribe from '../components/YoutubeSubscribe.astro';
 import { getPlaylistVideos } from '../lib/youtube';
-import { VideoCard } from '../components/YoutubeVideoCard.astro';
+import YoutubeVideoCard from '../components/YoutubeVideoCard.astro';
 
 const playlistId = 'PLpy6NB5QxjnMy_kNg7R2Q4w7V-KJaubMx';
 
@@ -15,7 +15,7 @@ let videos = [];
 let errorMessage = '';
 
 try {
-  videos = await getPlaylistVideos(playlistId, 1);
+  videos = await getPlaylistVideos(playlistId, 6);
 } catch (error) {
   errorMessage = 'Error loading videos';
 }
@@ -117,24 +117,28 @@ const quickLinks = [
     <section class="container mx-auto px-4 py-16 bg-secondary/5">
       <div class="text-center mb-12">
         <h2 class="text-3xl font-serif font-bold mb-4">Our Shows</h2>
-        <p class="text-gray-600">Watch our latest performance on YouTube</p>
+        <p class="text-gray-600">Watch our latest performances on YouTube</p>
       </div>
 
-      <div class="max-w-4xl mx-auto mb-6">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
         {videos.length > 0 ? (
-          <YoutubeEmbed
-            type="video"
-            videoId={videos[0].id}
-            title={videos[0].title}
-          />
+          videos.map((video: any) => (
+            <YoutubeVideoCard
+              id={video.id}
+              title={video.title}
+              description={video.description || ''}
+              thumbnails={video.thumbnails}
+              publishedAt={video.publishedAt}
+            />
+          ))
         ) : (
-          <div class="text-center text-gray-500 py-8">
+          <div class="col-span-2 md:col-span-3 text-center text-gray-500 py-8">
             {errorMessage || 'No videos available'}
           </div>
         )}
       </div>
 
-      <div class="max-w-4xl mx-auto mb-8">
+      <div class="text-center mt-8">
         <YoutubeSubscribe />
       </div>
     </section>
