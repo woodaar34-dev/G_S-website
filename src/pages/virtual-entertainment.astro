@@ -3,21 +3,24 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import YoutubeSubscribe from '../components/YoutubeSubscribe.astro';
-import { getPlaylistVideos } from '../lib/youtube';
+import { getPlaylistVideos, getYoutubeShorts } from '../lib/youtube';
 import YoutubeVideoCard from '../components/YoutubeVideoCard.astro';
+import YoutubeShortsGrid from '../components/YoutubeShortsGrid.astro';
 
 const latestVideoPlaylistId = 'PLpy6NB5QxjnMAl1dwoMpLVMiRAHOOEx-7';
 const featuredPlaylistId = 'PLpy6NB5QxjnMAl1dwoMpLVMiRAHOOEx-7';
-const shortsChannelHandle = '@connecticutgilbertsullivan2348';
+const shortsChannelId = 'UCPirOpb_2Rei1SzcbtxId6Q';
 
 let latestVideo = null;
 let featuredVideos = [];
+let shorts = [];
 let errorMessage = '';
 
 try {
   const latest = await getPlaylistVideos(latestVideoPlaylistId, 1);
   latestVideo = latest.length > 0 ? latest[0] : null;
   featuredVideos = await getPlaylistVideos(featuredPlaylistId, 6);
+  shorts = await getYoutubeShorts(shortsChannelId, 6);
 } catch (error) {
   errorMessage = 'Error loading videos';
 }
@@ -84,18 +87,17 @@ try {
           <p class="mb-6">
             Watch our shortest and most entertaining moments from rehearsals, behind-the-scenes, and more!
           </p>
-          <div class="aspect-video bg-black rounded-lg overflow-hidden mb-6">
-            <iframe
-              class="w-full h-full rounded-lg"
-              src="https://www.youtube.com/embed/live_stream?channel=@connecticutgilbertsullivan2348"
-              title="YouTube Shorts - Connecticut Gilbert & Sullivan Society"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
+          <div class="mb-6">
+            {shorts.length > 0 ? (
+              <YoutubeShortsGrid shorts={shorts} />
+            ) : (
+              <div class="text-center text-gray-500 py-8">
+                {errorMessage || 'No shorts available'}
+              </div>
+            )}
           </div>
           <div class="text-center">
-            <a href={`https://www.youtube.com/${shortsChannelHandle}/shorts`} target="_blank" class="inline-flex items-center gap-2 btn-primary">
+            <a href={`https://www.youtube.com/@connecticutgilbertsullivan2348/shorts`} target="_blank" class="inline-flex items-center gap-2 btn-primary">
               <svg
                 class="w-5 h-5"
                 fill="currentColor"

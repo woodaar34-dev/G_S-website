@@ -1,4 +1,5 @@
 const YOUTUBE_API_KEY = import.meta.env.YOUTUBE_API_KEY;
+const CT_GS_CHANNEL_ID = 'UCPirOpb_2Rei1SzcbtxId6Q';
 
 export async function getPlaylistVideos(playlistId: string, maxResults = 6) {
   if (!YOUTUBE_API_KEY) {
@@ -34,24 +35,13 @@ export async function getLatestVideo(playlistId: string) {
   return videos.length > 0 ? videos[0] : null;
 }
 
-export async function getYoutubeShorts(channelHandle: string, maxResults = 6) {
+export async function getYoutubeShorts(channelId = CT_GS_CHANNEL_ID, maxResults = 6) {
   if (!YOUTUBE_API_KEY) {
     console.warn('YOUTUBE_API_KEY not set');
     return [];
   }
 
   try {
-    const channelName = channelHandle.replace('@', '');
-    const channelUrl = `https://www.googleapis.com/youtube/v3/channels?part=id&forUsername=${channelName}&key=${YOUTUBE_API_KEY}`;
-    const channelResponse = await fetch(channelUrl);
-    const channelData = await channelResponse.json();
-
-    if (!channelData.items || channelData.items.length === 0) {
-      return [];
-    }
-
-    const channelId = channelData.items[0].id;
-
     const shortsUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&channelId=${channelId}&videoDuration=short&maxResults=${maxResults}&key=${YOUTUBE_API_KEY}`;
     const response = await fetch(shortsUrl);
     const data = await response.json();

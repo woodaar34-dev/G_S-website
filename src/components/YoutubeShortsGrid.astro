@@ -1,0 +1,26 @@
+---
+interface Props {
+  shorts: Array<{ id: string; title: string; thumbnails: any }>;
+}
+
+const { shorts } = Astro.props;
+
+if (shorts.length === 0) {
+  return <div class="text-center text-gray-500 py-8">No shorts available</div>;
+}
+---
+
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+  {shorts.map((short) => (
+    <div class="relative aspect-[9/16] rounded-lg overflow-hidden group">
+      <a href={`https://youtu.be/${short.id}`} target="_blank" rel="noopener noreferrer">
+        <img
+          src={short.thumbnails.medium?.url || short.thumbnails.default?.url}
+          alt={short.title}
+          class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+        />
+        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+      </a>
+    </div>
+  ))}
+</div>
