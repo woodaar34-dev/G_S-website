@@ -3,6 +3,26 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import YoutubeSubscribe from '../components/YoutubeSubscribe.astro';
+import { getPlaylistVideos, getYoutubeShorts } from '../lib/youtube';
+import YoutubeVideoCard from '../components/YoutubeVideoCard.astro';
+
+const latestVideoPlaylistId = 'PLpy6NB5QxjnMAl1dwoMpLVMiRAHOOEx-7';
+const featuredPlaylistId = 'PLpy6NB5QxjnMAl1dwoMpLVMiRAHOOEx-7';
+const shortsChannelHandle = '@connecticutgilbertsullivan2348';
+
+let latestVideo = null;
+let featuredVideos = [];
+let shorts = [];
+let errorMessage = '';
+
+try {
+  const latest = await getPlaylistVideos(latestVideoPlaylistId, 1);
+  latestVideo = latest.length > 0 ? latest[0] : null;
+  featuredVideos = await getPlaylistVideos(featuredPlaylistId, 6);
+  shorts = await getYoutubeShorts(shortsChannelHandle, 6);
+} catch (error) {
+  errorMessage = 'Error loading videos';
+}
 ---
 
 <Layout>
@@ -22,14 +42,17 @@ import YoutubeSubscribe from '../components/YoutubeSubscribe.astro';
           </p>
 
           <div class="aspect-video bg-black rounded-lg overflow-hidden mb-6">
-            <iframe
-              class="w-full h-full rounded-lg"
-              src="https://www.youtube.com/embed/videoseries?list=UUpy6NB5QxjnMy_kNg7R2Q4w7V-KJaubMx"
-              title="Connecticut Gilbert & Sullivan Society Channel"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
+            {latestVideo ? (
+              <img
+                src={latestVideo.thumbnails.medium?.url || latestVideo.thumbnails.default?.url}
+                alt={latestVideo.title}
+                class="w-full h-full object-cover"
+              />
+            ) : (
+              <div class="flex items-center justify-center h-full text-white">
+                {errorMessage || 'Loading latest video...'}
+              </div>
+            )}
           </div>
 
           <div class="text-center">
@@ -39,74 +62,61 @@ import YoutubeSubscribe from '../components/YoutubeSubscribe.astro';
 
         <div class="card mb-8">
           <h2 class="text-2xl font-serif font-bold mb-4">Featured Performances</h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="card text-center">
-              <div class="aspect-video mb-4 overflow-hidden rounded-lg">
-                <iframe
-                  class="w-full h-full rounded-lg"
-                  src="https://www.youtube.com/embed/IAWAdkbXdag"
-                  title="The Pirates of Penzance (2016)"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                ></iframe>
-              </div>
-              <h3 class="text-lg font-bold mb-2">The Pirates of Penzance (2016)</h3>
-              <p class="text-gray-600 mb-4">Full-length performance from 2016</p>
-              <a href="https://youtu.be/IAWAdkbXdag" target="_blank" class="inline-flex items-center gap-2 text-primary hover:underline">
-                <svg
-                  class="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-                Watch on YouTube
-              </a>
+          {featuredVideos.length > 0 ? (
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredVideos.map((video: any) => (
+                <YoutubeVideoCard
+                  id={video.id}
+                  title={video.title}
+                  description={video.description || ''}
+                  thumbnails={video.thumbnails}
+                  publishedAt={video.publishedAt}
+                />
+              ))}
             </div>
-            <div class="card text-center">
-              <div class="aspect-video mb-4 overflow-hidden rounded-lg">
-                <iframe
-                  class="w-full h-full rounded-lg"
-                  src="https://www.youtube.com/embed/videoseries?list=PLpy6NB5QxjnMy_kNg7R2Q4w7V-KJaubMx"
-                  title="Iolanthe (2024)"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                ></iframe>
-              </div>
-              <h3 class="text-lg font-bold mb-2">Iolanthe (2024)</h3>
-              <p class="text-gray-600 mb-4">Select performances available</p>
-              <a href="/virtual-entertainment" class="inline-flex items-center gap-2 btn-primary">
-                View All Iolanthe Videos
-              </a>
+          ) : (
+            <div class="text-center text-gray-500 py-8">
+              {errorMessage || 'No videos available'}
             </div>
-          </div>
+          )}
         </div>
 
         <div class="card mb-8">
-          <h2 class="text-2xl font-serif font-bold mb-4">Order Video Recordings</h2>
-          <div class="prose max-w-none">
-            <p class="mb-4">
-              <strong>UNABLE TO MAKE THE SHOW?</strong>
-            </p>
-            <p class="mb-6">
-              Order a video recording of our performances and enjoy them from the comfort
-              of your home. Perfect for those who couldn't attend or want to relive the experience.
-            </p>
-            <div class="bg-blue-50 p-6 rounded-lg mb-6">
-              <h3 class="text-xl font-bold mb-4">Currently Available: Iolanthe</h3>
-              <p class="mb-4">
-                Click
-                <a href="/videos/iolanthe-order" class="text-primary hover:underline font-semibold">
-                  HERE
-                </a>
-                to order a video of the Saturday matinee and/or Saturday evening performance of Iolanthe.
-              </p>
-              <p class="text-sm text-gray-600">
-                PDF Order Form • Includes Streaming and Physical DVD Options
-              </p>
+          <h2 class="text-2xl font-serif font-bold mb-4">Behind the Scenes</h2>
+          <p class="mb-6">
+            Watch our shortest and most entertaining moments from rehearsals, behind-the-scenes, and more!
+          </p>
+          {shorts.length > 0 ? (
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {shorts.map((short: any) => (
+                <div class="relative aspect-[9/16] rounded-lg overflow-hidden group">
+                  <a href={`https://youtu.be/${short.id}`} target="_blank" rel="noopener noreferrer">
+                    <img
+                      src={short.thumbnails.medium?.url || short.thumbnails.default?.url}
+                      alt={short.title}
+                      class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+                  </a>
+                </div>
+              ))}
             </div>
+          ) : (
+            <div class="text-center text-gray-500 py-8">
+              {errorMessage || 'No shorts available'}
+            </div>
+          )}
+          <div class="text-center mt-6">
+            <a href={`https://www.youtube.com/${shortsChannelHandle}/shorts`} target="_blank" class="inline-flex items-center gap-2 btn-primary">
+              <svg
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M13 3a9 9 0 1 0 9 9 9 9 0 0 0-9-9zm0 16a7 7 0 1 1 7-7 7 7 0 0 1-7 7zm-1-9a1 1 0 0 0-1 1v4.25l3.5 2.1a1 1 0 0 0 1.5-1.1V8a1 1 0 0 0-1-1z" />
+              </svg>
+              View All Shorts on YouTube
+            </a>
           </div>
         </div>
 

@@ -6,6 +6,19 @@ import Footer from '../components/Footer.astro';
 import SponsorCard from '../components/SponsorCard.astro';
 import YoutubeEmbed from '../components/YoutubeEmbed.astro';
 import YoutubeSubscribe from '../components/YoutubeSubscribe.astro';
+import { getPlaylistVideos } from '../lib/youtube';
+import { VideoCard } from '../components/YoutubeVideoCard.astro';
+
+const playlistId = 'PLpy6NB5QxjnMy_kNg7R2Q4w7V-KJaubMx';
+
+let videos = [];
+let errorMessage = '';
+
+try {
+  videos = await getPlaylistVideos(playlistId, 1);
+} catch (error) {
+  errorMessage = 'Error loading videos';
+}
 
 const sponsors = [
   { name: 'WMNR', logo: '/images/sponsors/wmnr.png', url: 'https://wmnr.org' },
@@ -108,11 +121,17 @@ const quickLinks = [
       </div>
 
       <div class="max-w-4xl mx-auto mb-6">
-        <YoutubeEmbed
-          type="playlist"
-          playlistId="py6NB5QxjnMy_kNg7R2Q4w7V-KJaubMx"
-          title="CT Gilbert & Sullivan Latest Performance"
-        />
+        {videos.length > 0 ? (
+          <YoutubeEmbed
+            type="video"
+            videoId={videos[0].id}
+            title={videos[0].title}
+          />
+        ) : (
+          <div class="text-center text-gray-500 py-8">
+            {errorMessage || 'No videos available'}
+          </div>
+        )}
       </div>
 
       <div class="max-w-4xl mx-auto mb-8">

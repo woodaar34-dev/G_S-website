@@ -1,6 +1,6 @@
 ---
 interface Props {
-  type: 'playlist' | 'video' | 'channel';
+  type: 'playlist' | 'video' | 'shorts';
   playlistId?: string;
   videoId?: string;
   title?: string;
@@ -13,6 +13,8 @@ if (type === 'playlist' && playlistId) {
   embedUrl = `https://www.youtube.com/embed/videoseries?list=${playlistId}`;
 } else if (type === 'video' && videoId) {
   embedUrl = `https://www.youtube.com/embed/${videoId}`;
+} else if (type === 'shorts') {
+  embedUrl = `https://www.youtube.com/embed?listType=user_uploads&list=@connecticutgilbertsullivan2348&feature=sh`;
 } else {
   embedUrl = '';
 }
