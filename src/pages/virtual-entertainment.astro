@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import YoutubeSubscribe from '../components/YoutubeSubscribe.astro';
 import { getPlaylistVideos, getYoutubeShorts } from '../lib/youtube';
 import YoutubeVideoCard from '../components/YoutubeVideoCard.astro';
-import YoutubeShortsGrid from '../components/YoutubeShortsGrid.astro';
+import ShortsCarousel from '../components/ShortsCarousel.astro';
 
 const latestVideoPlaylistId = 'PLpy6NB5QxjnMAl1dwoMpLVMiRAHOOEx-7';
 const featuredPlaylistId = 'PLpy6NB5QxjnMAl1dwoMpLVMiRAHOOEx-7';
@@ -89,7 +89,7 @@ try {
           </p>
           <div class="mb-6">
             {shorts.length > 0 ? (
-              <YoutubeShortsGrid shorts={shorts} />
+              <ShortsCarousel shorts={shorts} />
             ) : (
               <div class="text-center text-gray-500 py-8">
                 {errorMessage || 'No shorts available'}
