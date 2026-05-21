@@ -6,37 +6,40 @@ interface Props {
 const { shorts } = Astro.props;
 ---
 
-<div class="relative w-full">
-  <div class="relative">
+<div class="relative w-full max-w-3xl mx-auto">
+  <div class="relative overflow-hidden">
     <!-- Navigation Arrows -->
     <button
       id="scroll-prev"
-      class="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-all disabled:opacity-0 disabled:pointer-events-none z-10 backdrop-blur-sm"
+      class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/70 hover:bg-black/80 text-white flex items-center justify-center transition-all disabled:opacity-0 disabled:cursor-not-allowed z-20 shadow-lg"
       aria-label="Previous Short"
     >
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+      <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
       </svg>
     </button>
 
     <!-- Scroll Container -->
     <div
       id="shorts-container"
-      class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 scrollbar-hide"
+      class="flex gap-3 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide"
+      style="scrollbar-width: none; -ms-overflow-style: none;"
     >
       {shorts.map((short, index) => (
         <div
-          class="snap-center flex-shrink-0 w-full relative aspect-video rounded-lg overflow-hidden group"
+          key={short.id}
+          class="snap-center flex-shrink-0 w-[80vw] sm:w-[60vw] md:w-[40vw] lg:w-[35vw] aspect-video rounded-lg overflow-hidden group cursor-pointer"
         >
           <a href={`https://youtu.be/${short.id}`} target="_blank" rel="noopener noreferrer" class="block w-full h-full">
             <img
-              src={short.thumbnails.medium?.url || short.thumbnails.default?.url}
+              src={short.thumbnails.high?.url || short.thumbnails.medium?.url || short.thumbnails.default?.url}
               alt={short.title}
               class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              loading="lazy"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <div class="absolute bottom-0 left-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity">
-              <p class="text-white text-sm font-medium truncate max-w-[80%]">{short.title}</p>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div class="absolute bottom-0 left-0 right-0 p-2 md:p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-white text-xs md:text-sm font-medium line-clamp-2">{short.title}</p>
             </div>
           </a>
         </div>
@@ -45,11 +48,11 @@ const { shorts } = Astro.props;
 
     <button
       id="scroll-next"
-      class="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-all disabled:opacity-0 disabled:pointer-events-none z-10 backdrop-blur-sm"
+      class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/70 hover:bg-black/80 text-white flex items-center justify-center transition-all disabled:opacity-0 disabled:cursor-not-allowed z-20 shadow-lg"
       aria-label="Next Short"
     >
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+      <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
       </svg>
     </button>
   </div>
@@ -70,29 +73,33 @@ const { shorts } = Astro.props;
     const nextButton = document.getElementById('scroll-next');
 
     if (container && prevButton && nextButton) {
-      // Update button states on scroll
       const updateButtons = () => {
         const { scrollLeft, scrollWidth, clientWidth } = container;
         prevButton.disabled = scrollLeft < 10;
         nextButton.disabled = scrollLeft >= scrollWidth - clientWidth - 10;
       };
 
-      // Scroll by a portion of width
-      const scrollByWidth = (amount) => {
-        const containerWidth = container.offsetWidth;
-        const itemWidth = container.firstElementChild.offsetWidth + 16; // +16 for gap
-        const itemsPerScreen = Math.floor(containerWidth / itemWidth);
-        const scrollAmount = itemsPerScreen * itemWidth;
-        container.scrollBy({ left: scrollAmount * amount, behavior: 'smooth' });
-        setTimeout(updateButtons, 300);
+      const scrollToNext = () => {
+        const item = container.firstElementChild;
+        if (item) {
+          const itemWidth = item.offsetWidth + 12;
+          container.scrollBy({ left: itemWidth, behavior: 'smooth' });
+          setTimeout(updateButtons, 300);
+        }
       };
 
-      // Event listeners
-      container.addEventListener('scroll', updateButtons);
-      prevButton.addEventListener('click', () => scrollByWidth(-1));
-      nextButton.addEventListener('click', () => scrollByWidth(1));
+      const scrollToPrev = () => {
+        const item = container.firstElementChild;
+        if (item) {
+          const itemWidth = item.offsetWidth + 12;
+          container.scrollBy({ left: -itemWidth, behavior: 'smooth' });
+          setTimeout(updateButtons, 300);
+        }
+      };
 
-      // Initial button state update
+      container.addEventListener('scroll', updateButtons);
+      prevButton.addEventListener('click', scrollToPrev);
+      nextButton.addEventListener('click', scrollToNext);
       updateButtons();
     }
   </script>
